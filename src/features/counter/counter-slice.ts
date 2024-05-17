@@ -14,7 +14,7 @@ interface CounterState {
 
 //초기 상태 정의
 const initialState: CounterState = {
-  value: 0,
+  value: 10,
 };
 
 //슬라이스 정의 (슬라이스 안에 reducer 로직이 들어있음)
@@ -27,6 +27,10 @@ const counterSlice = createSlice({
     incremented(state) {
       state.value++; //그냥 기존 리덕스에서는 불가능함(mutate X)-여기서는 변형하는 것처럼 코드를 짜도 immer라는 라이브러리가 알아서 immutable 업데이트 해줌
     },
+    amountAdded(state, action: PayloadAction<number>) {
+      //~
+      state.value += action.payload;
+    },
     //카운트 감소
 
     //카운터 초기화
@@ -34,5 +38,5 @@ const counterSlice = createSlice({
 });
 
 //원래 리덕스는 actionCreaters를 따로 만들어서 직접 짜야하지만 createSlice가 만들어줌
-export const { incremented } = counterSlice.actions;
+export const { incremented, amountAdded } = counterSlice.actions;
 export default counterSlice.reducer;

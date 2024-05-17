@@ -1,10 +1,20 @@
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { incremented } from "./features/counter/counter-slice";
+import { incremented, amountAdded } from "./features/counter/counter-slice";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
+
+  function handleClick() {
+    //하나씩 증가
+    //dispatch(incremented());
+
+    //원하는 값 만큼 증가
+    dispatch(amountAdded(3));
+  }
   return (
     <>
       <div>
@@ -17,7 +27,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <button onClick={handleClick}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
