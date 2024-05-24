@@ -1,9 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counter-slice";
+import { apiSlice } from "../features/dogs/dogs-api-slice";
 
 export const store = configureStore({
   //이 부분 다시 공부하기
-  reducer: { counter: counterReducer },
+  reducer: {
+    counter: counterReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(apiSlice.middleware);
+  },
 });
 
 //새로운 타입을 정의
